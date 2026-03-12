@@ -13,6 +13,8 @@ const Layout = ({ children }) => {
     const customerUser = JSON.parse(localStorage.getItem('customerUser') || 'null');
     const hasStaff = !!localStorage.getItem('staffToken');
     const hasCustomer = !!localStorage.getItem('customerToken');
+    const hasProvider = !!localStorage.getItem('providerToken');
+    const providerUser = JSON.parse(localStorage.getItem('providerUser') || 'null');
     const { cart } = useContext(CartContext);
 
     const handleStaffLogout = () => {
@@ -26,6 +28,12 @@ const Layout = ({ children }) => {
         localStorage.removeItem('customerUser');
         localStorage.removeItem('cart');
         navigate('/customer-login');
+    };
+
+    const handleProviderLogout = () => {
+        localStorage.removeItem('providerToken');
+        localStorage.removeItem('providerUser');
+        navigate('/milkman-login');
     };
 
     const handleSearch = (e) => {
@@ -69,6 +77,32 @@ const Layout = ({ children }) => {
                                     </button>
                                 </li>
                             </ul>
+                        </div>
+                    </div>
+                </nav>
+                <div className="container-fluid" style={{ marginTop: '80px' }}>
+                    {children}
+                </div>
+            </div>
+        );
+    }
+
+    // Provider/Milkman Navbar
+    if (hasProvider) {
+        return (
+            <div>
+                <nav className="navbar fixed-top" style={{ background: '#111', borderBottom: '1px solid var(--border-color)' }}>
+                    <div className="container-fluid ps-4 pe-4">
+                        <Link className="navbar-brand text-white fw-bold fs-4" to="/milkman-dashboard">
+                            🥛 Milkman Dashboard
+                        </Link>
+                        <div className="d-flex align-items-center ms-auto">
+                            <span className="text-white me-3 d-none d-md-inline small">
+                                Welcome, <strong>{providerUser?.store_name}</strong>
+                            </span>
+                            <button className="btn btn-outline-danger btn-sm" onClick={handleProviderLogout}>
+                                <LogOut size={16} className="me-1" /> Logout
+                            </button>
                         </div>
                     </div>
                 </nav>
@@ -137,6 +171,11 @@ const Layout = ({ children }) => {
                             )}
                             {!hasCustomer && (
                                 <>
+                                    <li className="nav-item">
+                                        <Link className="nav-link btn btn-outline-info btn-sm me-2 text-info fw-600" to="/milkman-login">
+                                            🥛 Milkman Login
+                                        </Link>
+                                    </li>
                                     <li className="nav-item">
                                         <Link className="nav-link btn btn-light btn-sm text-dark fw-600" to="/customer-login">
                                             Login

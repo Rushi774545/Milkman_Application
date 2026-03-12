@@ -2,14 +2,14 @@ from typing import Tuple, Optional, Any
 from django.core import signing
 from rest_framework.authentication import BaseAuthentication
 from rest_framework import exceptions
-from .models import Staff
+from .models import Provider
 
-SALT = "staff-auth"
+SALT = "provider-auth"
 TOKEN_MAX_AGE = 60 * 60 * 24
 
 
-def create_token(staff: Staff) -> str:
-    payload = {"id": staff.pk, "email": staff.email}
+def create_token(provider: Provider) -> str:
+    payload = {"id": provider.pk, "email": provider.email}
     return signing.dumps(payload, salt=SALT)
 
 
@@ -20,8 +20,8 @@ def verify_token(token: str) -> Optional[dict]:
         return None
 
 
-class StaffTokenAuthentication(BaseAuthentication):
-    def authenticate(self, request) -> Optional[Tuple[Staff, dict]]:
+class ProviderTokenAuthentication(BaseAuthentication):
+    def authenticate(self, request) -> Optional[Tuple[Provider, dict]]:
         auth = request.headers.get("Authorization")
         if not auth:
             return None
@@ -32,10 +32,7 @@ class StaffTokenAuthentication(BaseAuthentication):
         if payload is None:
             return None
         try:
-            staff = Staff.objects.get(pk=payload.get("id"))
-        except Staff.DoesNotExist:
+            provider = Provider.objects.get(pk=payload.get("id"))
+        except Provider.DoesNotExist:
             return None
-        return staff, payload
-
-
-#
+        return provider, payload

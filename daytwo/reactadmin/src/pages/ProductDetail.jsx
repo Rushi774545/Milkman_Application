@@ -97,6 +97,22 @@ const ProductDetail = () => {
                         <p style={{ color: 'var(--text-secondary)', fontSize: '16px', marginBottom: '20px' }}>
                             Category: <strong>{product.category_name || product.category}</strong>
                         </p>
+                        
+                        {/* Sold By info */}
+                        <div style={{ 
+                            background: 'rgba(0, 123, 255, 0.05)', 
+                            padding: '12px 15px', 
+                            borderRadius: '10px', 
+                            borderLeft: '4px solid var(--primary)',
+                            marginBottom: '25px'
+                        }}>
+                            <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-secondary)' }}>
+                                Sold by: <strong style={{ color: 'var(--text-primary)' }}>{product.provider_store_name || 'Milkman Provider'}</strong>
+                            </p>
+                            <p style={{ margin: 0, fontSize: '12px', color: 'var(--success)' }}>
+                                <Check size={12} className="me-1" /> Quality Assured & Fast Delivery
+                            </p>
+                        </div>
 
                         {/* Rating & Reviews */}
                         <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '25px', paddingBottom: '25px', borderBottom: '1px solid var(--border-color)' }}>
@@ -179,26 +195,24 @@ const ProductDetail = () => {
                         </div>
 
                         {/* Action Buttons */}
-                        <div style={{ display: 'flex', gap: '12px' }}>
+                        <div style={{ display: 'flex', gap: '16px' }}>
                             <button
                                 onClick={() => handleAddToCart()}
-                                className="btn-add-cart"
+                                className={`btn ${addedToCart ? 'btn-success' : 'btn-primary'}`}
                                 style={{
                                     flex: 1,
-                                    color: 'white',
-                                    fontSize: '16px',
-                                    fontWeight: '600',
-                                    background: addedToCart ? 'var(--success)' : 'linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%)',
+                                    fontSize: '18px',
+                                    padding: '16px',
                                 }}
                             >
                                 {addedToCart ? (
                                     <>
-                                        <Check size={18} className="me-2" style={{ display: 'inline' }} />
+                                        <Check size={20} />
                                         Added to Cart
                                     </>
                                 ) : (
                                     <>
-                                        <ShoppingCart size={18} className="me-2" style={{ display: 'inline' }} />
+                                        <ShoppingCart size={20} />
                                         Add to Cart
                                     </>
                                 )}
@@ -208,12 +222,8 @@ const ProductDetail = () => {
                                 className="btn btn-buy"
                                 style={{
                                     flex: 1,
-                                    textDecoration: 'none',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    fontSize: '16px',
-                                    fontWeight: '600'
+                                    fontSize: '18px',
+                                    padding: '16px',
                                 }}
                             >
                                 Buy Now

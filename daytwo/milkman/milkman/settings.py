@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'category',
     'product',
     'subscription',
+    'provider',
 ]
 
 MIDDLEWARE = [
@@ -87,6 +88,16 @@ DATABASES = {
     }
 }
 
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'customer.auth.CustomerTokenAuthentication',
+        'staff.auth.StaffTokenAuthentication',
+    ],
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators

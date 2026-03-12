@@ -179,10 +179,8 @@ const Cart = () => {
                         <button
                             disabled={!hasCustomerToken}
                             onClick={() => window.location.href = '#/checkout'}
-                            className="btn-primary"
+                            className="btn btn-primary w-100 mt-4"
                             style={{
-                                width: '100%',
-                                marginTop: '25px',
                                 opacity: hasCustomerToken ? '1' : '0.6',
                                 cursor: hasCustomerToken ? 'pointer' : 'not-allowed'
                             }}
@@ -193,13 +191,7 @@ const Cart = () => {
                         {/* Continue Shopping */}
                         <Link
                             to="/products"
-                            className="btn btn-outline-secondary"
-                            style={{
-                                width: '100%',
-                                marginTop: '10px',
-                                display: 'block',
-                                textAlign: 'center'
-                            }}
+                            className="btn btn-outline-secondary w-100 mt-2"
                         >
                             Continue Shopping
                         </Link>

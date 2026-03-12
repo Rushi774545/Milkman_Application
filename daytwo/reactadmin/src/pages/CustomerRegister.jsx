@@ -258,12 +258,10 @@ const CustomerRegister = () => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="btn-primary"
+                            className="btn btn-primary w-100"
                             style={{
-                                width: '100%',
-                                padding: '12px',
-                                fontSize: '16px',
-                                fontWeight: '600',
+                                padding: '16px',
+                                fontSize: '18px',
                                 opacity: loading ? '0.7' : '1',
                                 cursor: loading ? 'not-allowed' : 'pointer'
                             }}
@@ -273,24 +271,19 @@ const CustomerRegister = () => {
                     </form>
 
                     {/* Divider */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '15px', margin: '25px 0', color: 'var(--text-secondary)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '15px', margin: '30px 0', color: 'var(--text-secondary)' }}>
                         <div style={{ flex: 1, height: '1px', background: 'var(--border-color)' }}></div>
-                        <span style={{ fontSize: '13px' }}>Already have an account?</span>
+                        <span style={{ fontSize: '14px' }}>Already have an account?</span>
                         <div style={{ flex: 1, height: '1px', background: 'var(--border-color)' }}></div>
                     </div>
 
                     {/* Sign In Link */}
                     <Link
                         to="/customer-login"
-                        className="btn btn-outline-secondary"
+                        className="btn btn-outline-secondary w-100"
                         style={{
-                            width: '100%',
-                            padding: '12px',
-                            fontSize: '16px',
-                            fontWeight: '600',
-                            textDecoration: 'none',
-                            display: 'block',
-                            textAlign: 'center'
+                            padding: '16px',
+                            fontSize: '18px',
                         }}
                     >
                         Sign In

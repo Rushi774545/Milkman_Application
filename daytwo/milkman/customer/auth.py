@@ -13,13 +13,11 @@ def create_token(customer: Customer) -> str:
     return signing.dumps(payload, salt=SALT)
 
 
-def verify_token(token: str) -> dict:
+def verify_token(token: str) -> Optional[dict]:
     try:
         return signing.loads(token, salt=SALT, max_age=TOKEN_MAX_AGE)
-    except signing.SignatureExpired:
-        raise exceptions.AuthenticationFailed("Token expired")
-    except signing.BadSignature:
-        raise exceptions.AuthenticationFailed("Invalid token")
+    except (signing.SignatureExpired, signing.BadSignature):
+        return None
 
 
 class CustomerTokenAuthentication(BaseAuthentication):
@@ -29,10 +27,12 @@ class CustomerTokenAuthentication(BaseAuthentication):
             return None
         parts = auth.split()
         if len(parts) != 2 or parts[0].lower() != "token":
-            raise exceptions.AuthenticationFailed("Invalid authorization header")
-        payload: dict[str, Any] = verify_token(parts[1])
+            return None
+        payload: Optional[dict[str, Any]] = verify_token(parts[1])
+        if payload is None:
+            return None
         try:
             customer = Customer.objects.get(pk=payload.get("id"))
         except Customer.DoesNotExist:
-            raise exceptions.AuthenticationFailed("Customer not found")
+            return None
         return customer, payload

@@ -284,11 +284,12 @@ const Checkout = () => {
                         <button
                             onClick={handlePlaceOrder}
                             disabled={loading}
-                            className="btn-primary"
+                            className="btn btn-primary w-100 mt-4"
                             style={{
-                                width: '100%',
                                 opacity: loading ? '0.7' : '1',
-                                cursor: loading ? 'not-allowed' : 'pointer'
+                                cursor: loading ? 'not-allowed' : 'pointer',
+                                fontSize: '18px',
+                                padding: '16px'
                             }}
                         >
                             {loading ? 'Processing...' : 'Place Order'}

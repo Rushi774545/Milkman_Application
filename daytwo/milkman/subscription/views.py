@@ -12,19 +12,18 @@ from customer.models import Customer
 # subscriptions can be created by customers (orders) or managed by staff
 
 
-class SubscriptionViewSet(APIView):
-    # allow customer tokens for POST and staff for all methods
-    def get_authenticators(self):
-        if self.request.method == 'POST':
-            return [CustomerTokenAuthentication(), StaffTokenAuthentication()]
-        return [StaffTokenAuthentication()]
+from rest_framework.permissions import IsAuthenticated, BasePermission
 
+class IsCustomerOrStaff(BasePermission):
+    def has_permission(self, request, view):
+        return bool(request.user and request.user.is_authenticated)
+
+class SubscriptionViewSet(APIView):
+    authentication_classes = [CustomerTokenAuthentication, StaffTokenAuthentication]
+    # GET/POST require authenticated user (customer or staff)
+    # PUT/DELETE only available to staff
     def get_permissions(self):
-        # POST requires some authenticated user (customer or staff)
-        if self.request.method == 'POST':
-            return [IsAuthenticated()]
-        # GET/PUT/DELETE only available to staff
-        return [IsAuthenticated()]
+        return [IsCustomerOrStaff()]
 
     def get(self, request, format=None):
         # if customer is calling, return only their subscriptions

@@ -20,6 +20,9 @@ import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import OrderSuccess from './pages/OrderSuccess';
 import OrderHistory from './pages/OrderHistory';
+import MilkmanLogin from './pages/MilkmanLogin';
+import MilkmanRegister from './pages/MilkmanRegister';
+import MilkmanDashboard from './pages/MilkmanDashboard';
 
 import { CartProvider } from './context/CartContext';
 
@@ -31,6 +34,11 @@ const PrivateRoute = ({ children }) => {
 const CustomerRoute = ({ children }) => {
     const isLoggedIn = !!localStorage.getItem('customerToken');
     return isLoggedIn ? children : <Navigate to="/customer-login" />;
+};
+
+const ProviderRoute = ({ children }) => {
+    const isLoggedIn = !!localStorage.getItem('providerToken');
+    return isLoggedIn ? children : <Navigate to="/milkman-login" />;
 };
 
 function App() {
@@ -46,6 +54,12 @@ function App() {
                         <Route path="/category" element={<PrivateRoute><Category /></PrivateRoute>} />
                         <Route path="/product" element={<PrivateRoute><Product /></PrivateRoute>} />
                         <Route path="/subscription" element={<PrivateRoute><Subscription /></PrivateRoute>} />
+                        
+                        {/* milkman/provider routes */}
+                        <Route path="/milkman-login" element={<MilkmanLogin />} />
+                        <Route path="/milkman-register" element={<MilkmanRegister />} />
+                        <Route path="/milkman-dashboard" element={<ProviderRoute><MilkmanDashboard /></ProviderRoute>} />
+
                         {/* public/customer-facing pages */}
                         <Route path="/" element={localStorage.getItem('staffToken') ? <Navigate to="/staff" /> : <Home />} />
                         <Route path="/customer-login" element={<CustomerLogin />} />

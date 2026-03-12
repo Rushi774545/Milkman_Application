@@ -41,8 +41,8 @@ const Home = () => {
                 <div className="hero-content">
                     <h1 className="mb-3">Fresh Dairy Delivered Daily</h1>
                     <p className="mb-4">Get premium quality milk and dairy products delivered fresh to your doorstep</p>
-                    <Link to="/products" className="btn btn-buy" style={{ fontSize: '18px', padding: '12px 30px', width: 'auto' }}>
-                        <ShoppingCart size={20} className="me-2" style={{ display: 'inline' }} />
+                    <Link to="/products" className="btn btn-accent" style={{ fontSize: '18px', padding: '16px 40px', width: 'fit-content', margin: '0 auto' }}>
+                        <ShoppingCart size={22} />
                         Shop Now
                     </Link>
                 </div>

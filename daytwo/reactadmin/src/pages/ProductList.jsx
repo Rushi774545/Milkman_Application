@@ -213,7 +213,12 @@ const ProductList = () => {
                                     </div>
                                     <div className="product-info">
                                         <h5 className="product-title">{product.name}</h5>
-                                        <p className="product-category">{product.category_name}</p>
+                                        <div className="d-flex justify-content-between align-items-center mb-2">
+                                            <p className="product-category mb-0">{product.category_name}</p>
+                                            <span style={{ fontSize: '11px', color: 'var(--primary)', fontWeight: '600' }}>
+                                                {product.provider_store_name || 'Local Dairy'}
+                                            </span>
+                                        </div>
                                         {product.description && (
                                             <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '12px', lineHeight: '1.4' }}>
                                                 {product.description.substring(0, 60)}...
@@ -223,17 +228,15 @@ const ProductList = () => {
                                             <span className="product-price">₹{product.price}</span>
                                         </div>
                                         <button 
-                                            className="btn-add-cart"
+                                            className="btn btn-primary w-100"
                                             onClick={() => addToCart(product)}
-                                            style={{ color: 'white' }}
                                         >
-                                            <ShoppingCart size={16} className="me-2" style={{ display: 'inline' }} />
+                                            <ShoppingCart size={18} />
                                             Add to Cart
                                         </button>
                                         <Link 
                                             to={`/products/${product.id}`} 
-                                            className="btn btn-outline-secondary"
-                                            style={{ marginTop: '10px', display: 'block' }}
+                                            className="btn btn-outline-secondary w-100 mt-3"
                                         >
                                             View Details
                                         </Link>

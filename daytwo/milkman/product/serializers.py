@@ -4,6 +4,7 @@ from .models import Product
 
 class ProductSerializer(serializers.ModelSerializer):
     category_name = serializers.CharField(source='category.name', read_only=True)
+    provider_store_name = serializers.CharField(source='provider.store_name', read_only=True)
     image_url = serializers.SerializerMethodField()
 
     class Meta:

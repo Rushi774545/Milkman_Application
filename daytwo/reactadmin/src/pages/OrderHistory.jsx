@@ -107,6 +107,14 @@ const OrderHistory = () => {
                                     </div>
                                     <div>
                                         <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginBottom: '4px' }}>
+                                            Sold By
+                                        </p>
+                                        <p style={{ fontWeight: '600', color: 'var(--primary)' }}>
+                                            {order.provider_store_name || 'Local Dairy'}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginBottom: '4px' }}>
                                             Quantity
                                         </p>
                                         <p style={{ fontWeight: '600' }}>

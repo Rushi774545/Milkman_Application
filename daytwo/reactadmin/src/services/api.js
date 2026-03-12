@@ -10,10 +10,13 @@ const api = axios.create({
 api.interceptors.request.use((config) => {
     const customerToken = localStorage.getItem('customerToken');
     const staffToken = localStorage.getItem('staffToken');
+    const providerToken = localStorage.getItem('providerToken');
     if (customerToken) {
         config.headers.Authorization = `Token ${customerToken}`;
     } else if (staffToken) {
         config.headers.Authorization = `Token ${staffToken}`;
+    } else if (providerToken) {
+        config.headers.Authorization = `Token ${providerToken}`;
     }
     return config;
 });
@@ -32,6 +35,11 @@ api.interceptors.response.use(
                 localStorage.removeItem('customerToken');
                 localStorage.removeItem('customerUser');
                 window.location.href = '#/customer-login';
+            }
+            if (localStorage.getItem('providerToken')) {
+                localStorage.removeItem('providerToken');
+                localStorage.removeItem('providerUser');
+                window.location.href = '#/milkman-login';
             }
         }
         return Promise.reject(error);
